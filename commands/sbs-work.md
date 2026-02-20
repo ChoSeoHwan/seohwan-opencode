@@ -1,7 +1,6 @@
 ---
 description: SBS 실행 (다음 Task 1개만 수행하고 검수 대기)
 agent: atlas
-subtask: true
 ---
 
 플랜 이름은 `$ARGUMENTS`다.
