@@ -1,0 +1,90 @@
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
+  "agents": {
+    "sisyphus": {
+      "model": "openai/gpt-5.3-codex",
+      "variant": "xhigh"
+    },
+    "hephaestus": {
+      "model": "openai/gpt-5.3-codex",
+      "variant": "medium"
+    },
+    "oracle": {
+      "model": "openai/gpt-5.2",
+      "variant": "high"
+    },
+    "librarian": {
+      "model": "github-copilot/claude-sonnet-4.5"
+    },
+    "explore": {
+      "model": "github-copilot/gpt-5-mini"
+    },
+    "multimodal-looker": {
+      "model": "github-copilot/gemini-3-flash-preview"
+    },
+    "prometheus": {
+      "model": "github-copilot/claude-opus-4.6",
+      "variant": "max"
+    },
+    "metis": {
+      "model": "github-copilot/claude-opus-4.6",
+      "variant": "max"
+    },
+    "momus": {
+      "model": "openai/gpt-5.2",
+      "variant": "medium"
+    },
+    "atlas": {
+      "model": "github-copilot/claude-sonnet-4.5"
+    },
+    "ask": {
+      "model": "openai/gpt-5.2",
+      "variant": "high"
+    }
+  },
+  "categories": {
+    "visual-engineering": {
+      "model": "github-copilot/gemini-3-pro-preview"
+    },
+    "ultrabrain": {
+      "model": "openai/gpt-5.3-codex",
+      "variant": "xhigh"
+    },
+    "deep": {
+      "model": "openai/gpt-5.3-codex",
+      "variant": "medium"
+    },
+    "artistry": {
+      "model": "github-copilot/gemini-3-pro-preview",
+      "variant": "high"
+    },
+    "quick": {
+      "model": "github-copilot/claude-haiku-4.5"
+    },
+    "unspecified-low": {
+      "model": "github-copilot/claude-sonnet-4.5"
+    },
+    "unspecified-high": {
+      "model": "github-copilot/claude-sonnet-4.5"
+    },
+    "writing": {
+      "model": "github-copilot/gemini-3-flash-preview"
+    }
+  },
+  "skills": {
+    "sbs-plan": {
+      "description": "SBS 계획 생성: 각 Task에 [GATE] 추가 + 최종 요약은 한국어",
+      "agent": "Prometheus",
+      "subtask": true,
+      "template": "[SBS-PLAN-SKILL-ACTIVE]\n너는 Prometheus(Plan Builder)다. 절대 코드/파일을 구현하지 말고 오직 PLAN만 만든다.\n\n출력 파일: 반드시 `.sisyphus/plans/{name}.md` 에 저장한다.\n\n요구사항:\n1) Task는 반드시 체크리스트(- [ ]) 형태로 작성한다.\n2) 각 Task 블록 끝에 반드시 `[GATE]` 섹션을 넣어라. `[GATE]`에는:\n   - 검수 포인트(무엇을 확인받을지)\n   - 성공 기준(어떤 상태면 OK인지)\n   - 다음 Task 진행 조건: '사용자 approve가 있어야만 진행'을 명시\n3) 플랜 끝에 '플랜 요약' 섹션을 반드시 한국어로 작성하라.\n4) 마지막 안내는 한국어로: '실행은 /sbs-work {name} 로 시작'이라고 적어라.\n\n주의:\n- 기존 Prometheus 기본 흐름(.sisyphus/plans에 저장, 플랜 생성 후 안내)은 유지하되, 위 요구사항을 강제로 반영해라.추가 강제 규칙:\n- 플랜 마지막 실행 안내는 반드시 한국어로 \"다음 단계: /sbs-work {name}\"만 출력하라.\n- \"/start-work\" 문구는 절대 포함하지 마라.\n- \"Final Verification Wave\", \"F1~F4\", \"ZERO HUMAN INTERVENTION\", \"Parallel Execution Waves\" 같은 추가 절차 섹션을 만들지 마라.\n- 각 Task 끝에는 반드시 [GATE]를 넣되, 구성은 (검수 포인트/성공 기준/approve 필요) 3개만 포함하라.",
+      "allowed-tools": ["read", "write"]
+    },
+    "sbs-work": {
+      "description": "SBS 실행: 플랜에서 다음 미완료 Task 1개만 수행하고 [GATE]에서 멈춰 검수 요청",
+      "agent": "Atlas",
+      "subtask": true,
+      "template": "[SBS-WORK-SKILL-ACTIVE]\n너는 Atlas(Executor)다. 단, SBS 규칙을 따른다.\n\n입력으로 plan name `{name}` 를 받는다.\n1) `.sisyphus/plans/{name}.md` 를 읽는다.\n2) 체크리스트에서 다음 미완료 Task( - [ ] ) 1개만 선택한다.\n3) 그 Task 범위만 구현한다(필요한 최소 파일만 변경).\n4) 구현 후 반드시 즉시 멈추고, 해당 Task의 `[GATE]`를 인용/반영하여 검수 요청한다.\n\n검수 요청 출력 형식(반드시 포함):\n- 수행한 Task 번호/제목\n- 변경 파일 목록\n- 변경 요약\n- 실행한 검증(가능하면 lint/typecheck/test 중 최소 1개) 결과\n`[GATE]`의 검수 포인트/성공 기준 체크리스트\n\n중요 규칙:\n- 사용자가 approve 하기 전에는 다음 Task로 절대 진행하지 않는다.\n- 사용자가 request-changes(수정요청)하면: 현재 Task 범위에서만 수정하고 다시 같은 형식으로 검수 요청한다.\n- 체크박스(- [ ])를 - [x]로 바꾸는 건 'approve' 받은 뒤에만 한다.",
+      "allowed-tools": ["read", "edit", "write", "bash"]
+    }
+  }
+}
