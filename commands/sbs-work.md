@@ -19,3 +19,9 @@ agent: atlas
 - 변경 요약
 - 실행한 검증 결과(가능하면 lint/typecheck/test 중 1개 이상)
 - `[GATE]` 검수 포인트/성공 기준 체크리스트
+
+---
+
+다음 액션:
+- 승인: `/sbs-approve $ARGUMENTS`
+- 반려(변경 요청): `/sbs-reject $ARGUMENTS {변경 요청 내용}`

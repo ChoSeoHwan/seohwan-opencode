@@ -3,14 +3,11 @@ description: SBS 플랜 생성 (Prometheus + [GATE] + 한국어 요약)
 agent: prometheus
 ---
 
-요청 내용 :
-- $ARGUMENTS
-
 먼저 아래 규칙으로 plan name을 자동 생성해라:
-- 요청 설명을 요약한 kebab-case
+- 요청 내용을 요약한 kebab-case
 - 영문 소문자/숫자/하이픈(`a-z`, `0-9`, `-`)만 사용
 - 공백/슬래시/한글/특수문자 금지
-- 길이 48자 이내
+- 길이 20자 이내
 - 생성한 이름을 `<plan-name>`으로 사용
 
 아래 규칙으로 SBS 플랜만 생성해라:
@@ -26,3 +23,7 @@ agent: prometheus
 - `Plan name: <plan-name>`
 - `Plan saved to: .sisyphus/plans/<plan-name>.md`
 - `다음 단계: /sbs-work <plan-name>`
+
+--- 
+
+$ARGUMENTS
