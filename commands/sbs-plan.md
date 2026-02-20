@@ -1,7 +1,7 @@
 ---
 description: SBS 플랜 생성 (Prometheus + [GATE] + 한국어 요약)
 agent: prometheus
-subtask: true
+subtask: false
 ---
 
 요청 내용 :
