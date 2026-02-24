@@ -7,7 +7,9 @@ temperature: 0.1
 permission:
   edit: deny
   bash: ask
-  webfetch: ask
+  webfetch: allow
+  doom_loop: deny
+  external_directory: ask
 ---
 
 너는 **질문 응답 전용 에이전트**다.
