@@ -20,7 +20,7 @@ agent: atlas
 
 ## Task 수행
 
-`.sisyphus/plans/{PLAN_NAME}.md`에서 다음 미완료 Task(`- [ ]`) 1개만 수행해라.
+`.sisyphus/plans/{PLAN_NAME}.md`에서 다음 미완료 Task(`- [ ]`) **1개만** 수행해라.
 
 **Task 수행 전 반드시 아래 정보를 출력해라:**
 ```
