@@ -1,0 +1,19 @@
+tabWidth: 4
+useTabs: false
+semi: true
+bracketSpacing: true
+jsxBracketSameLine: true
+arrowParens: always
+trailingComma: none
+proseWrap: never
+singleQuote: true
+endOfLine: auto
+
+overrides:
+  - files:
+      - "*.json"
+      - "*.yml"
+      - "*.yaml"
+    options:
+      tabWidth: 2
+      singleQuote: false

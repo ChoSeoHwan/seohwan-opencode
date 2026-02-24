@@ -10,7 +10,13 @@ agent: atlas
 1. **`$1`가 비어있지 않으면**:
     - `{PLAN}`: `$1`
 2. **`$1`가 비어있으면**: `.sisyphus/plans/` 디렉토리에서 `- [ ]`(미완료 Task)가 존재하는 `.md` 파일을 찾아 자동 선택
-    - 플랜이 0개면: "❌ 진행 중인 플랜이 없습니다. `/sbs-plan`으로 새 플랜을 생성하세요." 출력 후 종료
+    - 플랜이 0개면: 다음 안내 문구 출력 후 종료
+       ```
+       ❌ 진행 중인 플랜이 없습니다. `/sbs-plan`으로 새 플랜을 생성하세요.
+
+       ### APPROVE RESULT
+       { "RESULT": "ERROR" }
+       ```
     - 플랜이 1개면: 해당 플랜을 자동 선택
     - 플랜이 2개 이상이면: `question` 도구를 사용하여 선택
         - header: "플랜 선택"
@@ -36,17 +42,14 @@ agent: atlas
    - 플랜 : {PLAN}
    - 태스크: {승인 대상 Task 번호/제목}
    
-   다음 액션:
-   - 진행: `/sbs-work {PLAN}`
+   ### APPROVE RESULT
+   { "RESULT": "SUCCESS", "PLAN": "{PLAN}" }
    ```
-6. 모든 Task가 완료되었으면, `question` 도구를 사용하여 사용자에게 플랜 파일 삭제 여부 확인:
-   - header: "플랜 정리"
-   - question: "모든 Task가 완료되었습니다. 플랜 파일을 삭제할까요?"
-   - options: [
-       {label: "삭제", description: "플랜 파일을 삭제하고 정리합니다"},
-       {label: "유지", description: "플랜 파일을 레퍼런스로 보관합니다"}
-     ]
-   - 사용자 선택에 따라: "삭제" 선택 시 파일 삭제, "유지" 선택 시 파일 유지
+6. 모든 Task가 완료되었으면, 다음 안내 문구 출력 후 종료
+   ```
+   ### APPROVE RESULT
+   { "RESULT": "FINISHED", "PLAN": "{PLAN}" }
+   ```
 
 **필수 규칙:**
 - ✅ `question` 도구를 직접 호출하여 사용자 입력 수집
