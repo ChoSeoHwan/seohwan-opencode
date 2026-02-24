@@ -42,6 +42,9 @@ agent: atlas
    - 플랜 : {PLAN}
    - 태스크: {승인 대상 Task 번호/제목}
    
+   다음 액션:
+   - 진행: `/sbs-work {PLAN}`
+   
    ### APPROVE RESULT
    { "RESULT": "SUCCESS", "PLAN": "{PLAN}" }
    ```

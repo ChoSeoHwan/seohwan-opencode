@@ -28,7 +28,7 @@ export const extractJsonObject = (text: string): string | null => {
     return null;
 };
 
-const APPROVE_RESULT_MARKER = '### APPROVE RESULT';
+const APPROVE_RESULT_MARKER = 'APPROVE RESULT';
 export const parseApproveResult = (text: string): ApproveResult | null => {
     const markerIndex = text.lastIndexOf(APPROVE_RESULT_MARKER);
 
@@ -45,7 +45,7 @@ export const parseApproveResult = (text: string): ApproveResult | null => {
         if (!parsed || typeof parsed !== 'object') return null;
 
         let result = parsed.RESULT;
-        if (result !== 'string') return null;
+        if (typeof result !== 'string') return null;
         result = result.toUpperCase().trim();
 
         if (result === 'ERROR') return { RESULT: 'ERROR' };
