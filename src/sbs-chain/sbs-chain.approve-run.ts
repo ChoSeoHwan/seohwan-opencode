@@ -58,7 +58,11 @@ export const sbsChainApproveRun = async (data: {
     const parsed = parseApproveResult(text);
 
     if (!parsed) {
-        await showToast(client, 'APPROVE RESULT 파싱에 실패했습니다.', 'error');
+        await showToast(
+            client,
+            `APPROVE RESULT 파싱에 실패했습니다.\n\n${text}`,
+            'error'
+        );
         return;
     }
 
