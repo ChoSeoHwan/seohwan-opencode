@@ -19,6 +19,12 @@ agent: prometheus
    - 다음 Task 진행 조건: '사용자 approve가 있어야만 진행'을 명시
 - 플랜 끝에 '플랜 요약' 섹션을 반드시 한국어로 작성하라.
 
+개발 수립은 아래와 같이 진행해라:
+- 가능한 TDD(Test Driven Development) 방식으로 개발을 진행해라.
+  - 목적과 그 목적을 달성하기 위한 세부 Test Case 를 수립하라.
+  - Test Case 를 구현하기 위한 코드 작업을 TASK 로 세부적으로 나누어라.
+- 개발 수립 시 불명확한 사항이 있으면, 반드시 `question` 도구를 사용하여 사용자에게 질문하여 명확히 한 후 진행해라.
+
 최종 출력은 아래 3줄만:
 - `Plan name: <plan-name>`
 - `Plan saved to: .sisyphus/plans/<plan-name>.md`
