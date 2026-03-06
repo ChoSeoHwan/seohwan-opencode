@@ -3,5 +3,8 @@
   "plugin": ["oh-my-opencode@latest"],
   "permission": {
     "question": "allow"
+  },
+  "compaction": {
+    "auto": false
   }
 }

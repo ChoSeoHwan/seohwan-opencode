@@ -3,47 +3,68 @@ description: SBS 검수 승인 (Task 완료 → 다음 Task 자동 진행)
 agent: atlas
 ---
 
-## Plan Name 결정
+# 변수 설정 및 검증
 
-아래 규칙으로 `{PLAN}`, `{TASK}` 을 결정해라:
+## `{PLAN}` 결정
 
-1. **`$1`가 비어있지 않으면**:
-    - `{PLAN}`: `$1`
-2. **`$1`가 비어있으면**: `.sisyphus/plans/` 디렉토리에서 `- [ ]`(미완료 Task)가 존재하는 `.md` 파일을 찾아 자동 선택
-    - 플랜이 0개면: 다음 안내 문구 출력 후 종료
-       ```
-       ❌ 진행 중인 플랜이 없습니다. `/sbs-plan`으로 새 플랜을 생성하세요.
+아래 규칙으로 `{PLAN}` 을 결정해라:
 
-       ### APPROVE RESULT
-       { "RESULT": "ERROR" }
-       ```
-    - 플랜이 1개면: 해당 플랜을 자동 선택
-    - 플랜이 2개 이상이면: `question` 도구를 사용하여 선택
-        - header: "플랜 선택"
-        - question: "진행할 플랜을 선택하세요"
-        - options: [플랜 이름 목록 (확장자 제외)]
+`{PLAN}`: `$1`
 
-`{TASK}`: 현재 선택된 TASK 번호/제목
+- `{PLAN}` 이 비어있으면 다음 안내 문구를 출력하고 종료해라:
+   ```
+   ❌ 플랜 이름이 필요합니다. `/sbs-approve {PLAN}` 형식으로 플랜 이름을 입력하세요.
+   
+   ### APPROVE RESULT
+   { "RESULT": "ERROR" }
+   ```
 
-## 승인 작업 준비
+- `.sisyphus/plans/{PLAN}.md` 파일이 존재하는지 확인해라. 존재하지 않으면 다음 안내 문구를 출력하고 종료해라.
+   ```
+   ❌ 플랜 파일이 존재하지 않습니다: .sisyphus/plans/{PLAN}.md
+   
+   ### APPROVE RESULT
+   { "RESULT": "ERROR" }
+   ```
 
-**승인 작업 시작 전 반드시 아래 정보를 출력해라:**
+## `{TASK}` 결정
+
+아래 규칙으로 `{TASK}` 을 결정하고 검증해라:
+
+`{TASK}`: `.sisyphus/plans/{PLAN}.md` 에서 `- [ ]`(미완료 Task) 중 가장 첫 번째 Task
+
+- `{TASK}`(미완료 태스크) 가 없으면 다음 안내 문구를 출력하고 종료해라.
+   ```
+   모든 태스크가 완료되었습니다.
+   
+   ### APPROVE RESULT
+   { "RESULT": "FINISHED", "PLAN": "{PLAN}" }
+   ```
+
+# 승인 작업
+
+## **최상단에 반드시 아래 정보를 출력해라:**
 ```
 - 플랜: {PLAN}
 - 태스크: {TASK}
+
 **`{TASK}` 를 승인하겠습니다.**
 ```
 
 ## 승인 프로세스:
+
 1. `.sisyphus/plans/{PLAN}.md` 읽기
 2. 가장 최근 수행된 Task (= 마지막으로 검수 요청된 `- [ ]` Task) 찾기
 3. 현재 Task의 체크박스를 `- [x]`로 변경
 4. 플랜 파일 저장
-5. 다음 미완료 Task(`- [ ]`)가 있으면 다음 안내 문구 출력 후 종료
+
+## **마지막에 반드시 아래 정보를 출력해라:**
+
+- 다음 미완료 Task(`- [ ]`)가 있으면 다음 안내 문구 출력 후 종료
    ```
    승인 완료되었습니다.
    - 플랜 : {PLAN}
-   - 태스크: {승인 대상 Task 번호/제목}
+   - 태스크: {TASK}
    
    다음 액션:
    - 진행: `/sbs-work {PLAN}`
@@ -51,15 +72,15 @@ agent: atlas
    ### APPROVE RESULT
    { "RESULT": "SUCCESS", "PLAN": "{PLAN}" }
    ```
-6. 모든 Task가 완료되었으면, 다음 안내 문구 출력 후 종료
+
+- 모든 Task가 완료되었으면, 다음 안내 문구 출력 후 종료
    ```
+   모든 태스크가 완료되었습니다.
+   
    ### APPROVE RESULT
    { "RESULT": "FINISHED", "PLAN": "{PLAN}" }
    ```
 
-검수 요청에 반드시 포함:
-- 수행한 Task 번호/제목
-- 변경 파일 목록
-- 변경 요약
-- 실행한 검증 결과(가능하면 lint/typecheck/test 중 1개 이상)
-- `[GATE]` 검수 포인트/성공 기준 체크리스트
+---
+
+/sbs-approve $ARGUMENTS
