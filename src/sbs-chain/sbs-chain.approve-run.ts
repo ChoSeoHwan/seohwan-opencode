@@ -42,11 +42,11 @@ export const sbsChainApproveRun = async (data: {
     });
 
     if (messageResult.error || !messageResult.data) {
-        await showToast(
+        await showToast({
             client,
-            'sbs-approve 결과 메시지를 읽지 못했습니다.',
-            'error'
-        );
+            message: 'sbs-approve 결과 메시지를 읽지 못했습니다.',
+            variant: 'error'
+        });
         return;
     }
 
@@ -58,21 +58,21 @@ export const sbsChainApproveRun = async (data: {
     const parsed = parseApproveResult(text);
 
     if (!parsed) {
-        await showToast(
+        await showToast({
             client,
-            `APPROVE RESULT 파싱에 실패했습니다.\n\n${text}`,
-            'error'
-        );
+            message: `APPROVE RESULT 파싱에 실패했습니다.\n\n${text}`,
+            variant: 'error'
+        });
         return;
     }
 
     const result = parsed.RESULT;
     if (result === 'ERROR') {
-        await showToast(
+        await showToast({
             client,
-            '승인 결과가 ERROR입니다. 로그를 확인하세요.',
-            'error'
-        );
+            message: '승인 결과가 ERROR입니다. 로그를 확인하세요.',
+            variant: 'error'
+        });
         return;
     }
 
@@ -85,11 +85,11 @@ export const sbsChainApproveRun = async (data: {
         );
 
         if (commandResult.error) {
-            await showToast(
+            await showToast({
                 client,
-                '/sbs-work 자동 실행에 실패했습니다.',
-                'error'
-            );
+                message: '/sbs-work 자동 실행에 실패했습니다.',
+                variant: 'error'
+            });
         }
 
         return;
@@ -104,11 +104,11 @@ export const sbsChainApproveRun = async (data: {
         );
 
         if (commandResult.error) {
-            await showToast(
+            await showToast({
                 client,
-                '/sbs-cleanup-plan 자동 실행에 실패했습니다.',
-                'error'
-            );
+                message: '/sbs-cleanup-plan 자동 실행에 실패했습니다.',
+                variant: 'error'
+            });
         }
 
         return;

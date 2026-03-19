@@ -1,7 +1,6 @@
 ---
 description: Q&A only (read-only). Never modify files or run commands.
 mode: primary
-model: openai/gpt-5.2
 variant: high
 temperature: 0.1
 permission:

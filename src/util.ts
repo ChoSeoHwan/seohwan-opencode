@@ -1,14 +1,17 @@
 import type { Plugin } from '@opencode-ai/plugin';
 
-export const showToast = async (
-    client: Parameters<Plugin>[0]['client'],
-    message: string,
-    variant: 'info' | 'warning' | 'error' = 'warning'
-) => {
+export const showToast = async (data: {
+    client: Parameters<Plugin>[0]['client'];
+    message: string;
+    variant?: 'info' | 'warning' | 'error';
+    duration?: number;
+}) => {
+    const { client, message, variant } = data;
     await client.tui.showToast({
         body: {
             message,
-            variant
+            variant: variant ?? 'warning',
+            duration: data.duration
         }
     });
 };

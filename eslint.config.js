@@ -4,7 +4,7 @@ import eslintSimpleImportSortPlugin from 'eslint-plugin-simple-import-sort';
 import eslintPluginToml from 'eslint-plugin-toml';
 import eslintYamlPlugin from 'eslint-plugin-yml';
 import globals from 'globals';
-import eslintJsonParser from 'jsonc-eslint-parser';
+import * as eslintJsonParser from 'jsonc-eslint-parser';
 import eslintTypescriptPlugin from 'typescript-eslint';
 
 // eslint basic config
