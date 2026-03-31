@@ -4,7 +4,7 @@
     "@eslint/compat": "^2.0.3",
     "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^10.0.1",
-    "@opencode-ai/plugin": "1.2.18",
+    "@opencode-ai/plugin": "1.2.24",
     "@opencode-ai/sdk": "^1.2.18",
     "@tsconfig/recommended": "^1.0.13",
     "@types/node": "^25.5.0",

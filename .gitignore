@@ -3,3 +3,4 @@ bun.lock
 .idea
 .sisyphus
 temp
+opencode.json
