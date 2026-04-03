@@ -1,11 +1,11 @@
 import type { Plugin } from '@opencode-ai/plugin';
 
-import { sbsChainApproveRun } from '../src/sbs-chain/index.js';
+import { sbsChain } from '../src/sbs-chain/index.js';
 
 export const SbsChainPlugin: Plugin = async ({ client, directory }) => {
     return {
         event: async ({ event }) => {
-            await sbsChainApproveRun({
+            await sbsChain({
                 client,
                 directory,
                 event

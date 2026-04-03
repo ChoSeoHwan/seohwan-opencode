@@ -80,6 +80,9 @@ agent: atlas
 사용자의 다음 입력을 대기하겠습니다:
 - 승인: `/sbs-approve {PLAN}`
 - 반려(변경 요청): `/sbs-reject {PLAN} "{변경 요청 내용}"`
+
+### PLAN APPROVE QUESTION
+{ "PLAN": "{PLAN}", "TASK": "{TASK}" }
 ```
 
 ---

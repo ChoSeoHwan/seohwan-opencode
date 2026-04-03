@@ -15,11 +15,11 @@ agent: prometheus
 # Plan 수립
 
 ## Plan 수립 규칙
-
+[sbs-approve-question.md](sbs-approve-question.md)
 아래 규칙으로 SBS 플랜만 생성해라:
 - 결과를 `.sisyphus/plans/{PLAN}.md`에 저장한다.
 - Task는 반드시 체크리스트(- [ ]) 형태로 작성한다.
-- 각 Task 블록 끝에 반드시 `[GATE]` 섹션을 넣어라. `[GATE]`에는:
+- 각 Task 블록 끝에 반드시 `[GATE]` 섹션을 넣어라. `[GATE]`에는:[sbs-approve-question.md](sbs-approve-question.md)
    - 검수 포인트(무엇을 확인받을지)
    - 성공 기준(어떤 상태면 OK인지)
    - 다음 Task 진행 조건: '사용자 approve가 있어야만 진행'을 명시
@@ -40,6 +40,9 @@ agent: prometheus
 - 플랜 이름: `{PLAN}`
 - 저장 위치 : `.sisyphus/plans/{PLAN}.md``
 - 다음 단계: `/sbs-work {PLAN}`
+
+### PLAN APPROVE QUESTION
+{ "PLAN": "{PLAN}", "TASK": "{TASK}" }
 ```
 
 --- 
