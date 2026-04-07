@@ -42,7 +42,7 @@ agent: prometheus
 - 다음 단계: `/sbs-work {PLAN}`
 
 ### PLAN APPROVE QUESTION
-{ "PLAN": "{PLAN}", "TASK": "{TASK}" }
+{ "PLAN": "{PLAN}", "TASK": "CREATE_PLAN" }
 ```
 
 --- 
