@@ -7,7 +7,7 @@ agent: atlas
 `{PLAN}`: `$1`
 
 # 아래 규칙을 따라 실행해라.
-[detail](sbs-approve/detail.md)
+[detail](./sbs-approve/detail.md)
 
 ---
 
