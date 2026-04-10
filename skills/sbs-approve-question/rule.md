@@ -49,3 +49,7 @@
 ### QUESTION RESULT
 { "TYPE": "{VALUE}", "REASON": "{REJECT_INPUT}", "PLAN": "{PLAN}", "TASK": "{TASK}" }
 ```
+
+## **주의 사항**
+직접 작업을 수행하려 하지말고, JSON Output 만 출력 후 종료해라.
+그 다음 작업은 다른 AGENT 가 자동으로 이어서 실행할 것이다.
