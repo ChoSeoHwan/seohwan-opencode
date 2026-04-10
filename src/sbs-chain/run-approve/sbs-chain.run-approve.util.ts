@@ -9,8 +9,8 @@ export const parseApproveResult = (text: string): ApproveResult | null => {
     if (markerIndex < 0) throw new Error('APPROVE RESULT marker not found');
 
     const resultText = text.slice(markerIndex + APPROVE_RESULT_MARKER.length);
-    const jsonText = MessageParser.toJSONObject(resultText);
-    if (jsonText.length === 0) throw new Error('APPROVE RESULT JSON not found');
+    const jsonList = MessageParser.toJSONObject(resultText);
+    if (jsonList.length === 0) throw new Error('APPROVE RESULT JSON not found');
 
     const schema = z.union([
         z.object({ RESULT: z.literal('ERROR') }),
@@ -22,7 +22,7 @@ export const parseApproveResult = (text: string): ApproveResult | null => {
     ]);
 
     try {
-        const raw = jsonText[0];
+        const raw = jsonList[0];
         if (typeof raw?.RESULT === 'string')
             raw.RESULT = raw.RESULT.toUpperCase().trim();
 

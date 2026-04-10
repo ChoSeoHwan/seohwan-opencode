@@ -7,13 +7,27 @@ export const showToast = async (data: {
     duration?: number;
 }) => {
     const { client, message, variant } = data;
-    await client.tui.showToast({
-        body: {
-            message,
-            variant: variant ?? 'warning',
-            duration: data.duration
-        }
-    });
+
+    try {
+        await client.tui.appendPrompt({
+            body: { text: message }
+        });
+        return;
+    } catch {
+        // fallback to tui.showToast for non-web environments
+    }
+
+    try {
+        await client.tui.showToast({
+            body: {
+                message,
+                variant: variant ?? 'warning',
+                duration: data.duration
+            }
+        });
+    } catch {
+        console.log(message);
+    }
 };
 
 export const runCommand = (

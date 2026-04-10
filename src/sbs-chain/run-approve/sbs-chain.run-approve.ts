@@ -3,7 +3,7 @@ import { type Event, OpencodeClient } from '@opencode-ai/sdk';
 import { ClientHelper } from '../../common/client-helper.js';
 import { parseApproveResult } from './sbs-chain.run-approve.util.js';
 
-const APPROVE_COMMAND_NAMES = new Set(['sbs-approve', '/sbs-approve']);
+const APPROVE_COMMAND_NAMES = new Set(['sbs-approve']);
 
 export const sbsChainRunApprove = async (data: {
     client: OpencodeClient;

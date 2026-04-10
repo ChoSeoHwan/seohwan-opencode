@@ -16,17 +16,18 @@ export class MessageParser {
         const repairedJson = JSON.parse(repairedMessage);
 
         const repaired: JsonObject[] = [];
-        if (typeof repairedJson === 'object') {
-            repaired.push(repairedJson);
-            return repaired;
-        }
-
         if (Array.isArray(repairedJson)) {
             for (const item of repairedJson) {
                 if (typeof item === 'object') repaired.push(item);
             }
             return repaired;
         }
+
+        if (typeof repairedJson === 'object') {
+            repaired.push(repairedJson);
+            return repaired;
+        }
+
         return [];
     }
 }

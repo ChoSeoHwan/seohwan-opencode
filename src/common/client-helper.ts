@@ -67,13 +67,32 @@ export class ClientHelper {
         duration?: number;
     }) {
         const { message, variant } = data;
-        await this.client.tui.showToast({
-            body: {
-                message,
-                variant: variant ?? 'warning',
-                duration: data.duration
-            }
-        });
+
+        let icon = '⚠️';
+        switch (variant) {
+            case 'info':
+                icon = 'ℹ️';
+                break;
+            case 'error':
+                icon = '❌';
+                break;
+        }
+
+        const finalMessage = `${icon} ${message}`;
+
+        try {
+            await this.client.tui.showToast({
+                body: {
+                    message,
+                    variant: variant ?? 'warning',
+                    duration: data.duration
+                }
+            });
+        } catch (error) {
+            console.log(finalMessage);
+
+            console.error('tui.showToast failed:', error);
+        }
     }
 
     async runCommand(command: string, argumentsText: string) {
